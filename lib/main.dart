@@ -171,12 +171,15 @@ class MenuTabState extends State<MenuTab> {
       margin: EdgeInsets.all(5),
       child: Text(
         widget.name,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context)
+            .textTheme
+            .apply(bodyColor: Colors.white, displayColor: Colors.white)
+            .headline6,
       ),
-      decoration: BoxDecoration(
-        color: picked ? Colors.grey : Colors.white,
-        borderRadius: BorderRadius.all(const Radius.circular(20)),
-      ),
+      // decoration: BoxDecoration(
+      //   color: picked ? Colors.grey : Colors.white,
+      //   borderRadius: BorderRadius.all(const Radius.circular(20)),
+      // ),
     );
   }
 
@@ -231,9 +234,11 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         backgroundColor: Colors.grey[900],
-        leading: Image(
-          image: AssetImage("assets/images/logo.png"),
-          fit: BoxFit.fitHeight,
+        leading: Container(
+          child: Image(
+            image: AssetImage("assets/images/logo.png"),
+            fit: BoxFit.fitWidth,
+          ),
         ),
       ),
       body: Container(
@@ -315,15 +320,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                CartPage(cart: this.cart)),
+                            builder: (context) => CartPage(cart: this.cart)),
                       );
                       setState(() {});
                     },
                     child: Container(
                       padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                      margin: EdgeInsets.fromLTRB(30, 5, 30, 20),
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           Align(
                             alignment: Alignment.center,
@@ -333,10 +338,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           Align(
-                            alignment: Alignment.bottomRight,
+                            alignment: FractionalOffset.bottomRight,
                             child: Text(
                               "${cart.totalPrice}р",
                               style: Theme.of(context).textTheme.bodyText1,
+                              // textAlign: TextAlign.center,
                             ),
                           )
                         ],
@@ -344,7 +350,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       decoration: BoxDecoration(
                         color: Colors.yellow,
                         borderRadius:
-                            BorderRadius.all(const Radius.circular(10)),
+                            BorderRadius.all(const Radius.circular(15)),
                       ),
                     ),
                   ),

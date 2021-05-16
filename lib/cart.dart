@@ -20,7 +20,7 @@ class Cart {
   }
 
   void addItem(MenuItem item) {
-    if (items.containsKey(item)) {
+    if (items.containsKey(item) && items[item] < 9) {
       items[item]++;
     } else {
       items.putIfAbsent(item, () => 1);
@@ -58,6 +58,7 @@ class CartItemWidget extends StatelessWidget {
           child: Image(image: AssetImage(item.imageUrl)),
         ),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               item.name,
@@ -135,6 +136,8 @@ class _TablePickerState extends State<TablePicker> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey,
+        border: Border.all(width: 2, color: Colors.white),
+        borderRadius: BorderRadius.all(const Radius.circular(15)),
       ),
       child: Column(
         children: <Widget>[
@@ -143,8 +146,8 @@ class _TablePickerState extends State<TablePicker> {
             minValue: 0,
             maxValue: 100,
             onChanged: (value) => setState(() => _currentValue = value),
+            itemHeight: 30,
           ),
-          Text('Current value: $_currentValue'),
         ],
       ),
     );
@@ -159,11 +162,9 @@ class _CartPageState extends State<CartPage> {
       builder: (BuildContext context) {
         return Dialog(
           child: Container(
-            padding: EdgeInsets.only(
-              top: 30,
-              bottom: 30
-            ),
+            padding: EdgeInsets.only(top: 30, bottom: 30),
             decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.black),
               image: DecorationImage(
                   image: AssetImage("assets/images/background.png"),
                   fit: BoxFit.cover),
@@ -197,18 +198,15 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
-        leading: Image(
-          image: AssetImage("assets/images/logo.png"),
-          fit: BoxFit.fitHeight,
-        ),
-        actions: [
-          Image(
+        leading: Container(
+          child: Image(
             image: AssetImage("assets/images/logo.png"),
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.fitWidth,
           ),
-        ],
+        ),
       ),
       body: Container(
+        padding: EdgeInsets.only(bottom: 5),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/background.png"),
@@ -222,7 +220,7 @@ class _CartPageState extends State<CartPage> {
               style: Theme.of(context)
                   .textTheme
                   .apply(bodyColor: Colors.white, displayColor: Colors.white)
-                  .headline6,
+                  .headline4,
             ),
             Expanded(
               child: ListView(
@@ -245,17 +243,24 @@ class _CartPageState extends State<CartPage> {
                         .apply(
                             bodyColor: Colors.white, displayColor: Colors.white)
                         .headline6,
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 Expanded(
                   flex: 4,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      widget.cart.clear();
-                      await _showDialog();
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Оформить заказ"),
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      left: 20,
+                      right: 20
+                    ),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        widget.cart.clear();
+                        await _showDialog();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Оформить заказ"),
+                    ),
                   ),
                 ),
               ],
