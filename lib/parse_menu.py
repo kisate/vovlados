@@ -41,7 +41,7 @@ for section in sections:
         price = re.search(f"{parts[3][0]}(.*){parts[3][1]}", menu[5*i + 3]).group(1)
         items[-1]["items"].append({
             "name" : name,
-            "imageUrl" : img_src,
+            "imageUrl" : str(Path("assets/images", Path(img_src).name)),
             "price" : int(price.split()[0]) 
         })
 
