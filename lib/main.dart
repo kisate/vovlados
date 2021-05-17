@@ -1,13 +1,18 @@
+import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'common.dart';
 import 'cart.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await readMenu();
   runApp(MyApp());
 }
 
@@ -126,6 +131,8 @@ class MenuSectionWidget extends StatelessWidget {
                                         bodyColor: Colors.white,
                                         displayColor: Colors.white)
                                     .headline6,
+                                overflow: TextOverflow.fade,
+                                maxLines: 2,
                               ),
                             ),
                           ],
@@ -190,6 +197,14 @@ class MenuTabState extends State<MenuTab> {
   }
 }
 
+Future readMenu()async {
+  String data = await rootBundle.loadString("assets/menu.json");
+  Iterable jsonResult = json.decode(data);
+  loadedMenu = List<MenuSection>.from(jsonResult.map((item) => MenuSection.fromJson(item)));
+}
+
+List<MenuSection> loadedMenu;
+
 class _MyHomePageState extends State<MyHomePage> {
   Cart cart = Cart();
   final _menuScrollController = AutoScrollController(
@@ -198,16 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _tabScrollController = AutoScrollController(
     axis: Axis.horizontal,
   );
-  final List<MenuSection> menu = new List<MenuSection>.generate(
-    7,
-    (index) => MenuSection(
-      "Section $index",
-      new List<MenuItem>.generate(
-        11,
-        (index) => MenuItem("Item $index", 400, "assets/images/hach.png"),
-      ),
-    ),
-  );
+  final List<MenuSection> menu = loadedMenu;
 
   void addItem(MenuItem item) {
     setState(() {

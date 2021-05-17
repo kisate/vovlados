@@ -60,12 +60,17 @@ class CartItemWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              item.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .apply(bodyColor: Colors.white, displayColor: Colors.white)
-                  .headline6,
+            Container(
+              width: 200,
+              child: Text(
+                item.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .apply(bodyColor: Colors.white, displayColor: Colors.white)
+                    .headline6,
+                overflow: TextOverflow.fade,
+                maxLines: 1,
+              ),
             ),
             Row(
               children: [
@@ -249,10 +254,7 @@ class _CartPageState extends State<CartPage> {
                 Expanded(
                   flex: 4,
                   child: Container(
-                    margin: EdgeInsets.only(
-                      left: 20,
-                      right: 20
-                    ),
+                    margin: EdgeInsets.only(left: 20, right: 20),
                     child: ElevatedButton(
                       onPressed: () async {
                         widget.cart.clear();
