@@ -8,6 +8,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'common.dart';
 import 'cart.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await readMenu();
@@ -33,13 +34,29 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.yellow,
         fontFamily: "Lobster",
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      onGenerateRoute: (settings) {
+        // If you push the PassArguments route
+        int table;
+        final uriData = Uri.parse(settings.name);
+        if (uriData.queryParameters.containsKey("table"))
+        {
+          table = int.parse(uriData.queryParameters["table"]);
+        }
+
+        return MaterialPageRoute(
+          builder: (context) {
+            return MyHomePage(
+              table: table,
+            );
+          },
+        );
+      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.table, this.title, }) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -51,6 +68,7 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final int table;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -154,50 +172,44 @@ class MenuSectionItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        homePage.addItem(item);
-      },
-      child: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          color: Colors.black54,
-        ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Column(
-                children: [
-                  Image(
-                    image: AssetImage(item.imageUrl),
-                    fit: BoxFit.fitWidth,
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: Colors.black54,
+      ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Column(
+              children: [
+                Image(
+                  image: AssetImage(item.imageUrl),
+                  fit: BoxFit.fitWidth,
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    item.name,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .apply(
+                            bodyColor: Colors.white, displayColor: Colors.white)
+                        .headline6,
+                    overflow: TextOverflow.fade,
+                    maxLines: 2,
                   ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      item.name,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .apply(
-                              bodyColor: Colors.white,
-                              displayColor: Colors.white)
-                          .headline6,
-                      overflow: TextOverflow.fade,
-                      maxLines: 2,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: MenuSectionItemButton(item: item, homePage: homePage),
-            ),
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: MenuSectionItemButton(item: item, homePage: homePage),
+          ),
+        ],
       ),
     );
   }
@@ -272,8 +284,16 @@ Future readMenu() async {
 
 List<MenuSection> loadedMenu;
 
+
+class Arguments {
+  final int table;
+
+  Arguments(this.table);
+}
+
+
 class _MyHomePageState extends State<MyHomePage> {
-  Cart cart = Cart();
+  Cart cart = Cart(null);
   final _menuScrollController = AutoScrollController(
     axis: Axis.vertical,
   );
@@ -302,6 +322,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
+    cart.table = widget.table;
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by

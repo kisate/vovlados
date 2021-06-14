@@ -6,6 +6,7 @@ import 'package:numberpicker/numberpicker.dart';
 class Cart {
   final items = Map<MenuItem, int>();
   int totalPrice = 0;
+  int table;
 
   void updatePrice() {
     totalPrice = 0;
@@ -35,6 +36,8 @@ class Cart {
     }
     updatePrice();
   }
+
+  Cart(this.table);
 }
 
 class CartItemWidget extends StatelessWidget {
@@ -78,9 +81,9 @@ class CartItemWidget extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: ElevatedButton(
                     onPressed: () {
-                      cartPageState.addItem(item);
+                      cartPageState.removeItem(item);
                     },
-                    child: Text("+"),
+                    child: Text("-"),
                   ),
                 ),
                 Text(
@@ -95,9 +98,9 @@ class CartItemWidget extends StatelessWidget {
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: ElevatedButton(
                       onPressed: () {
-                        cartPageState.removeItem(item);
+                        cartPageState.addItem(item);
                       },
-                      child: Text("-")),
+                      child: Text("+")),
                 ),
               ],
             ),
@@ -121,6 +124,7 @@ class CartItemWidget extends StatelessWidget {
 
 class CartPage extends StatefulWidget {
   final Cart cart;
+
 
   const CartPage({Key key, @required this.cart}) : super(key: key);
 
@@ -237,7 +241,7 @@ class _CartPageState extends State<CartPage> {
                     .toList(),
               ),
             ),
-            TablePicker(),
+            if (widget.cart.table == null) TablePicker(),
             Row(
               children: [
                 Expanded(
