@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,7 +8,7 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'common.dart';
 import 'cart.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await readMenu();
   runApp(MyApp());
@@ -87,6 +85,124 @@ class MenuHeader extends StatelessWidget {
   }
 }
 
+class MenuSectionItemButton extends StatelessWidget {
+  final MenuItem item;
+  final _MyHomePageState homePage;
+
+  const MenuSectionItemButton(
+      {Key key, @required this.item, @required this.homePage})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (!homePage.cart.items.containsKey(item)) {
+      return ElevatedButton(
+        onPressed: () {
+          homePage.addItem(item);
+        },
+        child: Text(
+          "${item.price}руб",
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+      );
+    }
+    return Row(
+      children: [
+        Expanded(
+          flex: 1,
+          child: ElevatedButton(
+            onPressed: () {
+              homePage.removeItem(item);
+            },
+            child: Text("-"),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            child: Text(
+              "${homePage.cart.items[item]}",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .apply(bodyColor: Colors.white, displayColor: Colors.white)
+                  .headline6,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: ElevatedButton(
+            onPressed: () {
+              homePage.addItem(item);
+            },
+            child: Text("+"),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MenuSectionItemWidget extends StatelessWidget {
+  final MenuItem item;
+  final _MyHomePageState homePage;
+
+  const MenuSectionItemWidget(
+      {Key key, @required this.item, @required this.homePage})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        homePage.addItem(item);
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.black54,
+        ),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                children: [
+                  Image(
+                    image: AssetImage(item.imageUrl),
+                    fit: BoxFit.fitWidth,
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      item.name,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context)
+                          .textTheme
+                          .apply(
+                              bodyColor: Colors.white,
+                              displayColor: Colors.white)
+                          .headline6,
+                      overflow: TextOverflow.fade,
+                      maxLines: 2,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: MenuSectionItemButton(item: item, homePage: homePage),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class MenuSectionWidget extends StatelessWidget {
   final List<MenuItem> items;
   final _MyHomePageState homePage;
@@ -101,60 +217,9 @@ class MenuSectionWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
+      childAspectRatio: 0.87,
       children: items
-          .map((item) => GestureDetector(
-                onTap: () {
-                  homePage.addItem(item);
-                },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                  ),
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Column(
-                          children: [
-                            Image(
-                              image: AssetImage(item.imageUrl),
-                              fit: BoxFit.fitWidth,
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                item.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .apply(
-                                        bodyColor: Colors.white,
-                                        displayColor: Colors.white)
-                                    .headline6,
-                                overflow: TextOverflow.fade,
-                                maxLines: 2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          "${item.price}руб",
-                          style: Theme.of(context)
-                              .textTheme
-                              .apply(
-                                  bodyColor: Colors.white,
-                                  displayColor: Colors.white)
-                              .headline6,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ))
+          .map((item) => MenuSectionItemWidget(item: item, homePage: homePage))
           .toList(),
     );
   }
@@ -198,10 +263,11 @@ class MenuTabState extends State<MenuTab> {
   }
 }
 
-Future readMenu()async {
+Future readMenu() async {
   String data = await rootBundle.loadString("assets/menu.json");
   Iterable jsonResult = json.decode(data);
-  loadedMenu = List<MenuSection>.from(jsonResult.map((item) => MenuSection.fromJson(item)));
+  loadedMenu = List<MenuSection>.from(
+      jsonResult.map((item) => MenuSection.fromJson(item)));
 }
 
 List<MenuSection> loadedMenu;
