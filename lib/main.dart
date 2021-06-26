@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -8,9 +9,9 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 import 'common.dart';
 import 'cart.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await readMenu();
   runApp(MyApp());
 }
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.yellow,
-        fontFamily: "Lobster",
+        fontFamily: "Stylo",
       ),
       onGenerateRoute: (settings) {
         // If you push the PassArguments route
@@ -82,6 +83,7 @@ class MenuHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(left:20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment(0.7, 0.5),

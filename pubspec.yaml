@@ -30,6 +30,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_core: "^0.7.0"
+  firebase_storage: "^7.0.0"
 
 dev_dependencies:
   flutter_test:
@@ -80,5 +82,11 @@ flutter:
     - family: Lobster
       fonts:
         - asset: fonts/Lobster-Regular.ttf
+    - family: Stylo
+      fonts:
+        - asset: fonts/3940.ttf
+    - family: DomCasual
+      fonts:
+        - asset: fonts/domcasual-normal1.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

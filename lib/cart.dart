@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'dart:convert';
 
 class Cart {
   final items = Map<MenuItem, int>();
@@ -38,6 +42,12 @@ class Cart {
   }
 
   Cart(this.table);
+
+  @override
+  String toString() {
+    String itemsString = items.entries.map((e) => "${e.key.name}\t${e.value}").join("\n");
+    return "$table\n$itemsString";
+  }
 }
 
 class CartItemWidget extends StatelessWidget {
@@ -45,11 +55,10 @@ class CartItemWidget extends StatelessWidget {
   final int count;
   final _CartPageState cartPageState;
 
-  const CartItemWidget(
-      {Key key,
-      @required this.item,
-      @required this.count,
-      @required this.cartPageState})
+  const CartItemWidget({Key key,
+    @required this.item,
+    @required this.count,
+    @required this.cartPageState})
       : super(key: key);
 
   @override
@@ -67,7 +76,8 @@ class CartItemWidget extends StatelessWidget {
               width: 200,
               child: Text(
                 item.name,
-                style: Theme.of(context)
+                style: Theme
+                    .of(context)
                     .textTheme
                     .apply(bodyColor: Colors.white, displayColor: Colors.white)
                     .headline6,
@@ -88,10 +98,11 @@ class CartItemWidget extends StatelessWidget {
                 ),
                 Text(
                   "$count",
-                  style: Theme.of(context)
+                  style: Theme
+                      .of(context)
                       .textTheme
                       .apply(
-                          bodyColor: Colors.white, displayColor: Colors.white)
+                      bodyColor: Colors.white, displayColor: Colors.white)
                       .headline6,
                 ),
                 Container(
@@ -111,7 +122,8 @@ class CartItemWidget extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             "${item.price}р",
-            style: Theme.of(context)
+            style: Theme
+                .of(context)
                 .textTheme
                 .apply(bodyColor: Colors.white, displayColor: Colors.white)
                 .headline6,
@@ -133,6 +145,11 @@ class CartPage extends StatefulWidget {
 }
 
 class TablePicker extends StatefulWidget {
+
+  final Cart cart;
+
+  const TablePicker({Key key, @required this.cart}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _TablePickerState();
 }
@@ -154,7 +171,11 @@ class _TablePickerState extends State<TablePicker> {
             value: _currentValue,
             minValue: 0,
             maxValue: 100,
-            onChanged: (value) => setState(() => _currentValue = value),
+            onChanged: (value) =>
+                setState(() {
+                  _currentValue = value;
+                  widget.cart.table = value;
+                }),
             itemHeight: 30,
           ),
         ],
@@ -187,10 +208,11 @@ class _CartPageState extends State<CartPage> {
                 Center(
                   child: Text(
                     "Спасибо за заказ!",
-                    style: Theme.of(context)
+                    style: Theme
+                        .of(context)
                         .textTheme
                         .apply(
-                            bodyColor: Colors.white, displayColor: Colors.white)
+                        bodyColor: Colors.white, displayColor: Colors.white)
                         .headline5,
                   ),
                 ),
@@ -200,6 +222,20 @@ class _CartPageState extends State<CartPage> {
         );
       },
     );
+  }
+
+  Future<void> uploadCart(Cart cart) async {
+    String text = cart.toString();
+    List<int> encoded = utf8.encode(text);
+    Uint8List data = Uint8List.fromList(encoded);
+
+    try {
+      await firebase_storage.FirebaseStorage.instance
+          .ref('uploads/hello-world.text')
+          .putData(data);
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -226,7 +262,8 @@ class _CartPageState extends State<CartPage> {
           children: [
             Text(
               "Заказ",
-              style: Theme.of(context)
+              style: Theme
+                  .of(context)
                   .textTheme
                   .apply(bodyColor: Colors.white, displayColor: Colors.white)
                   .headline4,
@@ -236,21 +273,23 @@ class _CartPageState extends State<CartPage> {
                 shrinkWrap: true,
                 children: widget.cart.items.entries
                     .toList()
-                    .map((e) => CartItemWidget(
+                    .map((e) =>
+                    CartItemWidget(
                         item: e.key, count: e.value, cartPageState: this))
                     .toList(),
               ),
             ),
-            if (widget.cart.table == null) TablePicker(),
+            if (widget.cart.table == null) TablePicker(cart: widget.cart),
             Row(
               children: [
                 Expanded(
                   child: Text(
                     "${widget.cart.totalPrice}р",
-                    style: Theme.of(context)
+                    style: Theme
+                        .of(context)
                         .textTheme
                         .apply(
-                            bodyColor: Colors.white, displayColor: Colors.white)
+                        bodyColor: Colors.white, displayColor: Colors.white)
                         .headline6,
                     textAlign: TextAlign.center,
                   ),
@@ -261,6 +300,8 @@ class _CartPageState extends State<CartPage> {
                     margin: EdgeInsets.only(left: 20, right: 20),
                     child: ElevatedButton(
                       onPressed: () async {
+
+                        uploadCart(widget.cart);
                         widget.cart.clear();
                         await _showDialog();
                         Navigator.of(context).pop();
