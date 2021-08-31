@@ -45,7 +45,8 @@ class Cart {
 
   @override
   String toString() {
-    String itemsString = items.entries.map((e) => "${e.key.name}\t${e.value}").join("\n");
+    String itemsString =
+        items.entries.map((e) => "${e.key.name}\t${e.value}").join("\n");
     return "$table\n$itemsString";
   }
 }
@@ -55,88 +56,119 @@ class CartItemWidget extends StatelessWidget {
   final int count;
   final _CartPageState cartPageState;
 
-  const CartItemWidget({Key key,
-    @required this.item,
-    @required this.count,
-    @required this.cartPageState})
+  const CartItemWidget(
+      {Key key,
+      @required this.item,
+      @required this.count,
+      @required this.cartPageState})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: Image(image: AssetImage(item.imageUrl)),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image(
+                image: AssetImage(item.imageUrl),
+              ),
+            ),
+            flex: 11,
+          ),
+          Spacer(flex: 1),
+          Expanded(
+            flex: 20,
+            child: Container(
               width: 200,
+              height: 100,
+              alignment: Alignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Text(
+                      item.shortName ?? item.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .apply(
+                              bodyColor: Colors.white,
+                              displayColor: Colors.white)
+                          .headline6,
+                      overflow: TextOverflow.fade,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Spacer(),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            cartPageState.removeItem(item);
+                          },
+                          child: Text("-"),
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        width: 50,
+                        alignment: Alignment.center,
+                        child: Text(
+                          "$count",
+                          style: Theme.of(context)
+                              .textTheme
+                              .apply(
+                                  bodyColor: Colors.white,
+                                  displayColor: Colors.white)
+                              .headline6,
+                        ),
+                      ),
+                      Spacer(),
+                      Container(
+                        width: 50,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              cartPageState.addItem(item);
+                            },
+                            child: Text("+")),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Spacer(
+            flex: 4,
+          ),
+          Expanded(
+            flex: 8,
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Text(
-                item.name,
-                style: Theme
-                    .of(context)
+                "${item.price}р",
+                style: Theme.of(context)
                     .textTheme
                     .apply(bodyColor: Colors.white, displayColor: Colors.white)
                     .headline6,
-                overflow: TextOverflow.fade,
-                maxLines: 1,
               ),
             ),
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      cartPageState.removeItem(item);
-                    },
-                    child: Text("-"),
-                  ),
-                ),
-                Text(
-                  "$count",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .apply(
-                      bodyColor: Colors.white, displayColor: Colors.white)
-                      .headline6,
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        cartPageState.addItem(item);
-                      },
-                      child: Text("+")),
-                ),
-              ],
-            ),
-          ],
-        ),
-        Spacer(),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Text(
-            "${item.price}р",
-            style: Theme
-                .of(context)
-                .textTheme
-                .apply(bodyColor: Colors.white, displayColor: Colors.white)
-                .headline6,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class CartPage extends StatefulWidget {
   final Cart cart;
-
 
   const CartPage({Key key, @required this.cart}) : super(key: key);
 
@@ -145,7 +177,6 @@ class CartPage extends StatefulWidget {
 }
 
 class TablePicker extends StatefulWidget {
-
   final Cart cart;
 
   const TablePicker({Key key, @required this.cart}) : super(key: key);
@@ -171,11 +202,10 @@ class _TablePickerState extends State<TablePicker> {
             value: _currentValue,
             minValue: 0,
             maxValue: 100,
-            onChanged: (value) =>
-                setState(() {
-                  _currentValue = value;
-                  widget.cart.table = value;
-                }),
+            onChanged: (value) => setState(() {
+              _currentValue = value;
+              widget.cart.table = value;
+            }),
             itemHeight: 30,
           ),
         ],
@@ -208,11 +238,10 @@ class _CartPageState extends State<CartPage> {
                 Center(
                   child: Text(
                     "Спасибо за заказ!",
-                    style: Theme
-                        .of(context)
+                    style: Theme.of(context)
                         .textTheme
                         .apply(
-                        bodyColor: Colors.white, displayColor: Colors.white)
+                            bodyColor: Colors.white, displayColor: Colors.white)
                         .headline5,
                   ),
                 ),
@@ -243,6 +272,13 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.arrow_back))
+        ],
         leading: Container(
           child: Image(
             image: AssetImage("assets/images/logo.png"),
@@ -260,21 +296,22 @@ class _CartPageState extends State<CartPage> {
         ),
         child: Column(
           children: [
-            Text(
-              "Заказ",
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .apply(bodyColor: Colors.white, displayColor: Colors.white)
-                  .headline4,
+            Container(
+              margin: EdgeInsets.only(top: 10, bottom: 10),
+              child: Text(
+                "Заказ",
+                style: Theme.of(context)
+                    .textTheme
+                    .apply(bodyColor: Colors.white, displayColor: Colors.white)
+                    .headline4,
+              ),
             ),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
                 children: widget.cart.items.entries
                     .toList()
-                    .map((e) =>
-                    CartItemWidget(
+                    .map((e) => CartItemWidget(
                         item: e.key, count: e.value, cartPageState: this))
                     .toList(),
               ),
@@ -285,11 +322,10 @@ class _CartPageState extends State<CartPage> {
                 Expanded(
                   child: Text(
                     "${widget.cart.totalPrice}р",
-                    style: Theme
-                        .of(context)
+                    style: Theme.of(context)
                         .textTheme
                         .apply(
-                        bodyColor: Colors.white, displayColor: Colors.white)
+                            bodyColor: Colors.white, displayColor: Colors.white)
                         .headline6,
                     textAlign: TextAlign.center,
                   ),
@@ -300,7 +336,6 @@ class _CartPageState extends State<CartPage> {
                     margin: EdgeInsets.only(left: 20, right: 20),
                     child: ElevatedButton(
                       onPressed: () async {
-
                         uploadCart(widget.cart);
                         widget.cart.clear();
                         await _showDialog();

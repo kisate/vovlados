@@ -2,13 +2,15 @@ class MenuItem {
   final String name;
   final int price;
   final String imageUrl;
+  final String shortName;
 
-  MenuItem(this.name, this.price, this.imageUrl);
+  MenuItem(this.name, this.price, this.imageUrl, this.shortName);
 
   MenuItem.fromJson(Map<String, dynamic> json)
       : name = json["name"],
         imageUrl = json["imageUrl"],
-        price = json["price"];
+        price = json["price"],
+        shortName = json["shortName"];
 }
 
 class MenuSection {

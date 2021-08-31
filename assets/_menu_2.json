@@ -1,0 +1,562 @@
+[
+  {
+    "name": "Холодные закуски",
+    "items": [
+      {
+        "name": "Баклажаны с орехами",
+        "imageUrl": "assets/images/baklajanoreh1219.jpg",
+        "price": 320
+      },
+      {
+        "name": "Мясное ассорти",
+        "imageUrl": "assets/images/myasnoeassorty.jpg",
+        "price": 490
+      },
+      {
+        "name": "Кежера-пхали",
+        "imageUrl": "assets/images/kejera0618.jpg",
+        "price": 320
+      },
+      {
+        "name": "Пхали из свеклы с капустой",
+        "imageUrl": "assets/images/phalisvekla0218.jpg",
+        "price": 290
+      },
+      {
+        "name": "Джонджоли",
+        "imageUrl": "assets/images/djondjoli0618.jpg",
+        "price": 320
+      },
+      {
+        "name": "Испанах",
+        "imageUrl": "assets/images/ispanahshor0218.jpg",
+        "price": 270
+      },
+      {
+        "name": "Соления по-кавказски",
+        "imageUrl": "assets/images/soleniakav0218.jpg",
+        "price": 280
+      },
+      {
+        "name": "Мжаве",
+        "imageUrl": "assets/images/mjave0218.jpg",
+        "price": 180
+      },
+      {
+        "name": "Овощное ассорти",
+        "imageUrl": "assets/images/ovoshassort0218.jpg",
+        "price": 300
+      },
+      {
+        "name": "Перец с орехами",
+        "imageUrl": "assets/images/perecsorehami0618.jpg",
+        "price": 290
+      },
+      {
+        "name": "Сёмга слабой соли",
+        "imageUrl": "assets/images/semga0218.jpg",
+        "price": 430
+      },
+      {
+        "name": "Сациви из рыбы",
+        "imageUrl": "assets/images/sacivifish0218.jpg",
+        "price": 370
+      },
+      {
+        "name": "Селёдочка под водочку",
+        "imageUrl": "assets/images/seledvod0218.jpg",
+        "price": 260
+      },
+      {
+        "name": "Сациви из курицы",
+        "imageUrl": "assets/images/sacivichiken0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Киндзмари",
+        "imageUrl": "assets/images/kindzmari0218.jpg",
+        "price": 370
+      },
+      {
+        "name": "Сырная тарелка",
+        "imageUrl": "assets/images/sirnayatarelka0618.jpg",
+        "price": 280
+      },
+      {
+        "name": "Язык с хреном",
+        "imageUrl": "assets/images/langhren0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Гебжалия",
+        "imageUrl": "assets/images/gebjalia0218.jpg",
+        "price": 300
+      }
+    ]
+  },
+  {
+    "name": "Салаты",
+    "items": [
+      {
+        "name": "Салат «Ацецили»",
+        "imageUrl": "assets/images/saladacecili0218.jpg",
+        "price": 310
+      },
+      {
+        "name": "Салат «Mада»",
+        "imageUrl": "assets/images/salat_mada.jpg",
+        "price": 450
+      },
+      {
+        "name": "Салат «Греческий»",
+        "imageUrl": "assets/images/salsdcrec0218.jpg",
+        "price": 250
+      },
+      {
+        "name": "Салат по-грузински",
+        "imageUrl": "assets/images/saladgeorgia0218.jpg",
+        "price": 260
+      },
+      {
+        "name": "Салат «Морской бриз»",
+        "imageUrl": "assets/images/morskoibriz0618.jpg",
+        "price": 360,
+        "shortName": "Салат\n«Морской бриз»"
+      },
+      {
+        "name": "Салат «Тёплый приём»",
+        "imageUrl": "assets/images/saladhotpr0218.jpg",
+        "price": 330,
+        "shortName": "Салат\n«Тёплый приём»"
+      },
+      {
+        "name": "Тыквенный салат с семечками",
+        "imageUrl": "assets/images/tykveni_salat.jpg",
+        "price": 230
+      },
+      {
+        "name": "Салат «Эгоист»",
+        "imageUrl": "assets/images/saladegoist0218.jpg",
+        "price": 330
+      },
+      {
+        "name": "Салат «Цезарь»",
+        "imageUrl": "assets/images/saladceasar0218.jpg",
+        "price": 330
+      },
+      {
+        "name": "Салат «Мечта»",
+        "imageUrl": "assets/images/saladmechta0218.jpg",
+        "price": 310
+      },
+      {
+        "name": "Салат «Цезарь» с креветками",
+        "imageUrl": "assets/images/cezar_krevetki.jpg",
+        "price": 360
+      }
+    ]
+  },
+  {
+    "name": "Первые блюда",
+    "items": [
+      {
+        "name": "Тыквенный крем-суп",
+        "imageUrl": "assets/images/tykveni_sup.jpg",
+        "price": 260,
+        "shortName": "Тыквенный\nкрем-суп"
+      },
+      {
+        "name": "Крем-суп грибной",
+        "imageUrl": "assets/images/creamsoup0218.jpg",
+        "price": 300
+      },
+      {
+        "name": "Чакапули",
+        "imageUrl": "assets/images/chakapuli0218.jpg",
+        "price": 470
+      },
+      {
+        "name": "Куриный бульон с домашней лапшой",
+        "imageUrl": "assets/images/chikenbulion0218.jpg",
+        "price": 260,
+        "sortName": "Куриный бульон с лапшой"
+      },
+      {
+        "name": "Уха по-царски",
+        "imageUrl": "assets/images/uhacarskaya0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Суп Харчо",
+        "imageUrl": "assets/images/harcho0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Хашлама из говядины",
+        "imageUrl": "assets/images/hashlama0218.jpg",
+        "price": 340
+      },
+      {
+        "name": "Солянка",
+        "imageUrl": "assets/images/solyanka0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Лагман",
+        "imageUrl": "assets/images/lagman0218.jpg",
+        "price": 360
+      },
+      {
+        "name": "Шурпа",
+        "imageUrl": "assets/images/shurpa0218.jpg",
+        "price": 330
+      }
+    ]
+  },
+  {
+    "name": "Выпечка",
+    "items": [
+      {
+        "name": "Хачапури по-мегрельски",
+        "imageUrl": "assets/images/hachapurimegr0218.jpg",
+        "price": 380
+      },
+      {
+        "name": "Хачапури по-царски",
+        "imageUrl": "assets/images/hachapuripocarsky0218.jpg",
+        "price": 560
+      },
+      {
+        "name": "Хачапури по-имеретински",
+        "imageUrl": "assets/images/hachapuripoimeretinski0218.jpg",
+        "price": 330
+      },
+      {
+        "name": "Хачапури по-аджарски",
+        "imageUrl": "assets/images/hachapuripoadjarsky0218.jpg",
+        "price": 390
+      },
+      {
+        "name": "Кубдари ",
+        "imageUrl": "assets/images/kubdari0218.jpg",
+        "price": 470
+      },
+      {
+        "name": "Чвиштари",
+        "imageUrl": "assets/images/chvishtari0218.jpg",
+        "price": 290
+      },
+      {
+        "name": "Лобиани",
+        "imageUrl": "assets/images/lobiani02181.jpg",
+        "price": 320
+      },
+      {
+        "name": "Хачапури Ачма в кеци",
+        "imageUrl": "assets/images/hachapuri_achma.jpg",
+        "price": 340,
+        "shortName": "Хачапури\nАчма в кеци"
+      },
+      {
+        "name": "Мчади",
+        "imageUrl": "assets/images/mchadi0618.jpg",
+        "price": 260
+      },
+      {
+        "name": "Чёрный хлеб",
+        "imageUrl": "assets/images/chhleb0618.jpg",
+        "price": 30
+      },
+      {
+        "name": "Лаваш",
+        "imageUrl": "assets/images/lavash.jpg",
+        "price": 50
+      }
+    ]
+  },
+  {
+    "name": "Горячие блюда",
+    "items": [
+      {
+        "name": "Хинкали с телятиной",
+        "imageUrl": "assets/images/hinkali0218.jpg",
+        "price": 330
+      },
+      {
+        "name": "Хинкали с бараниной",
+        "imageUrl": "assets/images/hinkali0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Хинкали со свининой и говядиной",
+        "imageUrl": "assets/images/hinkali0218.jpg",
+        "price": 300
+      },
+      {
+        "name": "Кучмачи",
+        "imageUrl": "assets/images/kuchmachi0218.jpg",
+        "price": 320
+      },
+      {
+        "name": "Абхазура",
+        "imageUrl": "assets/images/abhazuri0218.jpg",
+        "price": 370
+      },
+      {
+        "name": "Цыпленок табака",
+        "imageUrl": "assets/images/chikentabaka0218.jpg",
+        "price": 530
+      },
+      {
+        "name": "Чанахи",
+        "imageUrl": "assets/images/chanakhi0218.jpg",
+        "price": 440
+      },
+      {
+        "name": "Харчо ореховое",
+        "imageUrl": "assets/images/harchooreh0218.jpg",
+        "price": 410
+      },
+      {
+        "name": "Долма",
+        "imageUrl": "assets/images/dolma0218.jpg",
+        "price": 340
+      },
+      {
+        "name": "Цыплёнок в соусе ткемали",
+        "imageUrl": "assets/images/ciplenok_tkemali.jpg",
+        "price": 410
+      },
+      {
+        "name": "Лобио в горшочке",
+        "imageUrl": "assets/images/lobiogor0218.jpg",
+        "price": 280
+      },
+      {
+        "name": "Говядина по-грузински",
+        "imageUrl": "assets/images/govpogruz0618.jpg",
+        "price": 390
+      },
+      {
+        "name": "Чахохбили",
+        "imageUrl": "assets/images/chahohbili0618.jpg",
+        "price": 350
+      },
+      {
+        "name": "Оджахури со свининой",
+        "imageUrl": "assets/images/odjahuri0218.jpg",
+        "price": 370
+      },
+      {
+        "name": "Цыплёнок в чесночном соусе",
+        "imageUrl": "assets/images/ciplenok_garlik.jpg",
+        "price": 390
+      },
+      {
+        "name": "Чашушули из телятины",
+        "imageUrl": "assets/images/chashushuliiveal0618.jpg",
+        "price": 370
+      },
+      {
+        "name": "Купаты",
+        "imageUrl": "assets/images/kupati0618.jpg",
+        "price": 310
+      },
+      {
+        "name": "Чкмерули",
+        "imageUrl": "assets/images/chkmeruli0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Меткий выстрел",
+        "imageUrl": "assets/images/metkivistrel0618.jpg",
+        "price": 520
+      },
+      {
+        "name": "Печень индейки в кеци",
+        "imageUrl": "assets/images/indeyka_pechen.jpg",
+        "price": 350
+      },
+      {
+        "name": "Ягнёнок в чечевице",
+        "imageUrl": "assets/images/yagnenok_checheviza.jpg",
+        "price": 390
+      },
+      {
+        "name": "Шашлык из свинины",
+        "imageUrl": "assets/images/shashlnu0218.jpg",
+        "price": 360
+      },
+      {
+        "name": "Шашлык из баранины",
+        "imageUrl": "assets/images/shashlnu0218.jpg",
+        "price": 520
+      },
+      {
+        "name": "Шашлык из телятины",
+        "imageUrl": "assets/images/shashlnu0218.jpg",
+        "price": 450
+      },
+      {
+        "name": "Шашлык из курицы",
+        "imageUrl": "assets/images/shashlnu0218.jpg",
+        "price": 310
+      },
+      {
+        "name": "Шашлык из сёмги с соусом наршараб",
+        "imageUrl": "assets/images/ryba_shash.jpg",
+        "price": 520
+      },
+      {
+        "name": "Овощи на мангале",
+        "imageUrl": "assets/images/ovoshimangal0218.jpg",
+        "price": 220
+      },
+      {
+        "name": "Сибас на углях",
+        "imageUrl": "assets/images/sibas.jpg",
+        "price": 470
+      },
+      {
+        "name": "Стейк из форели",
+        "imageUrl": "assets/images/steaksalmon0218.jpg",
+        "price": 490
+      },
+      {
+        "name": "Дорадо на мангале",
+        "imageUrl": "assets/images/doradom0218.jpg",
+        "price": 470
+      },
+      {
+        "name": "Садж из телятины",
+        "imageUrl": "assets/images/sadjfortwo0218.jpg",
+        "price": 1590
+      },
+      {
+        "name": "Садж из баранины",
+        "imageUrl": "assets/images/sadjfortwo0218.jpg",
+        "price": 1750
+      },
+      {
+        "name": "Садж из рыбы",
+        "imageUrl": "assets/images/sadjfortwo0218.jpg",
+        "price": 1790
+      },
+      {
+        "name": "Стейк по-грузински",
+        "imageUrl": "assets/images/steakgeorg0218.jpg",
+        "price": 390
+      },
+      {
+        "name": "Свиные ребра",
+        "imageUrl": "assets/images/svribgr0218.jpg",
+        "price": 370
+      },
+      {
+        "name": "Люля-кебаб по-грузински",
+        "imageUrl": "assets/images/lyulakebab0618.jpg",
+        "price": 390
+      },
+      {
+        "name": "Люля-кебаб из баранины",
+        "imageUrl": "assets/images/lyulakebab0618.jpg",
+        "price": 400
+      },
+      {
+        "name": "Бараньи ребрышки",
+        "imageUrl": "assets/images/lambrib0218.jpg",
+        "price": 510
+      },
+      {
+        "name": "Бараньи семечки",
+        "imageUrl": "assets/images/muton_semechki.jpg",
+        "price": 450
+      }
+    ]
+  },
+  {
+    "name": "Горячие закуски",
+    "items": [
+      {
+        "name": "Аджапсандали",
+        "imageUrl": "assets/images/adjapsandal0218.jpg",
+        "price": 320
+      },
+      {
+        "name": "Вареники с сыром",
+        "imageUrl": "assets/images/varenikissirom0218.jpg",
+        "price": 320
+      },
+      {
+        "name": "Сулугуни жареный",
+        "imageUrl": "assets/images/sulugunijar0218.jpg",
+        "price": 300
+      },
+      {
+        "name": "Мамалыга с сыром сулугуни",
+        "imageUrl": "assets/images/mamalyga0218.jpg",
+        "price": 220
+      },
+      {
+        "name": "Эларджи",
+        "imageUrl": "assets/images/elargi0218.jpg",
+        "price": 280
+      },
+      {
+        "name": "Шампиньоны с сыром в кеци",
+        "imageUrl": "assets/images/shampssirk0218.jpg",
+        "price": 350
+      },
+      {
+        "name": "Жюльен с грибами",
+        "imageUrl": "assets/images/julien0218.jpg",
+        "price": 290
+      }
+    ]
+  },
+  {
+    "name": "Гарниры и соусы",
+    "items": [
+      {
+        "name": "Картофель Айдахо",
+        "imageUrl": "assets/images/kartofel0618.jpg",
+        "price": 150
+      },
+      {
+        "name": "Картофель Фри",
+        "imageUrl": "assets/images/kartofel0618.jpg",
+        "price": 150
+      },
+      {
+        "name": "Картофельные шарики",
+        "imageUrl": "assets/images/kartofel0618.jpg",
+        "price": 150
+      },
+      {
+        "name": "Гренки с чесноком",
+        "imageUrl": "assets/images/grenki0618.jpg",
+        "price": 250
+      },
+      {
+        "name": "Соус тар-тар",
+        "imageUrl": "assets/images/souse0618.jpg",
+        "price": 50
+      },
+      {
+        "name": "Соус по-грузински",
+        "imageUrl": "assets/images/souse0618.jpg",
+        "price": 50
+      },
+      {
+        "name": "Соус ткемали",
+        "imageUrl": "assets/images/souse0618.jpg",
+        "price": 50
+      },
+      {
+        "name": "Соус наршараб",
+        "imageUrl": "assets/images/souse0618.jpg",
+        "price": 50
+      }
+    ]
+  }
+]

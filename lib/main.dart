@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'common.dart';
 import 'cart.dart';
 
@@ -33,14 +34,13 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.yellow,
-        fontFamily: "Stylo",
+        textTheme: GoogleFonts.gabrielaTextTheme(Theme.of(context).textTheme),
       ),
       onGenerateRoute: (settings) {
         // If you push the PassArguments route
         int table;
         final uriData = Uri.parse(settings.name);
-        if (uriData.queryParameters.containsKey("table"))
-        {
+        if (uriData.queryParameters.containsKey("table")) {
           table = int.parse(uriData.queryParameters["table"]);
         }
 
@@ -57,7 +57,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.table, this.title, }) : super(key: key);
+  MyHomePage({
+    Key key,
+    this.table,
+    this.title,
+  }) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -83,7 +87,7 @@ class MenuHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left:20),
+      padding: EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment(0.7, 0.5),
@@ -174,44 +178,40 @@ class MenuSectionItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Colors.black54,
-      ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              children: [
-                Image(
-                  image: AssetImage(item.imageUrl),
-                  fit: BoxFit.fitWidth,
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    item.name,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .apply(
-                            bodyColor: Colors.white, displayColor: Colors.white)
-                        .headline6,
-                    overflow: TextOverflow.fade,
-                    maxLines: 2,
-                  ),
-                ),
-              ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.0),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: Colors.black54,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image(
+                image: AssetImage(item.imageUrl),
+                fit: BoxFit.fitWidth,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: MenuSectionItemButton(item: item, homePage: homePage),
-          ),
-        ],
+            Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text(
+                item.name,
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .apply(bodyColor: Colors.white, displayColor: Colors.white)
+                    .headline6,
+                overflow: TextOverflow.fade,
+              ),
+            ),
+            Spacer(),
+            MenuSectionItemButton(item: item, homePage: homePage),
+          ],
+        ),
       ),
     );
   }
@@ -231,7 +231,7 @@ class MenuSectionWidget extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
-      childAspectRatio: 0.87,
+      childAspectRatio: 0.70,
       children: items
           .map((item) => MenuSectionItemWidget(item: item, homePage: homePage))
           .toList(),
@@ -278,7 +278,7 @@ class MenuTabState extends State<MenuTab> {
 }
 
 Future readMenu() async {
-  String data = await rootBundle.loadString("assets/menu.json");
+  String data = await rootBundle.loadString("assets/_menu_2.json");
   Iterable jsonResult = json.decode(data);
   loadedMenu = List<MenuSection>.from(
       jsonResult.map((item) => MenuSection.fromJson(item)));
@@ -286,13 +286,11 @@ Future readMenu() async {
 
 List<MenuSection> loadedMenu;
 
-
 class Arguments {
   final int table;
 
   Arguments(this.table);
 }
-
 
 class _MyHomePageState extends State<MyHomePage> {
   Cart cart = Cart(null);
@@ -374,33 +372,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      controller: _menuScrollController,
-                      itemCount: menu.length * 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return AutoScrollTag(
-                          key: ValueKey(index),
-                          controller: _menuScrollController,
-                          index: index,
-                          child: index % 2 == 0
-                              ? VisibilityDetector(
-                                  key: Key(index.toString()),
-                                  onVisibilityChanged: (VisibilityInfo info) {
-                                    if (info.visibleFraction == 1)
-                                      _tabScrollController.scrollToIndex(
-                                          index ~/ 2,
-                                          preferPosition:
-                                              AutoScrollPosition.begin);
-                                  },
-                                  child:
-                                      MenuHeader(title: menu[index ~/ 2].name),
-                                )
-                              : MenuSectionWidget(
-                                  items: menu[index ~/ 2].items,
-                                  homePage: this,
-                                ),
-                        );
-                      },
+                    child: Container(
+                      child: ListView.builder(
+                        padding: EdgeInsets.only(bottom: 70),
+                        controller: _menuScrollController,
+                        itemCount: menu.length * 2,
+                        itemBuilder: (BuildContext context, int index) {
+                          return AutoScrollTag(
+                            key: ValueKey(index),
+                            controller: _menuScrollController,
+                            index: index,
+                            child: index % 2 == 0
+                                ? VisibilityDetector(
+                                    key: Key(index.toString()),
+                                    onVisibilityChanged: (VisibilityInfo info) {
+                                      if (info.visibleFraction == 1)
+                                        _tabScrollController.scrollToIndex(
+                                            index ~/ 2,
+                                            preferPosition:
+                                                AutoScrollPosition.begin);
+                                    },
+                                    child: MenuHeader(
+                                        title: menu[index ~/ 2].name),
+                                  )
+                                : MenuSectionWidget(
+                                    items: menu[index ~/ 2].items,
+                                    homePage: this,
+                                  ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

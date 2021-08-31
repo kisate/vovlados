@@ -53,4 +53,4 @@ for section in sections:
 import json
 
 with open("menu.json", "w") as f:
-    json.dump(items, f, ensure_ascii=False)
+    json.dump(items, f, ensure_ascii=False)ешь
